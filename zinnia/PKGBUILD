@@ -1,29 +1,44 @@
-# $Id$
-# Maintainer: Felix Yan <felixonmars@gmail.com>
+# Maintainer: James An <james@jamesan.ca>
+# Contributor: Felix Yan <felixonmars@gmail.com>
 # Contributor: Humbert Julien <julroy67 [AT] gmail.com>
 
 pkgname=zinnia
-pkgver=0.06
-pkgrel=3
-pkgdesc="Simple, customizable and portable online hand recognition system based on Support Vector Machines"
+pkgver=0.07
+pkgrel=1
+pkgdesc='Simple, customizable and portable online hand recognition system based on Support Vector Machines'
 arch=('i686' 'x86_64')
-url="http://zinnia.sourceforge.net/"
+url="http://taku910.github.io/$pkgname"
 license=('BSD')
 depends=('gcc-libs')
 makedepends=('libtool')
-source=("http://downloads.sourceforge.net/project/$pkgname/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('ece3af93f937282971634fd81d3e997f848e8cfa958220e26a4564ca064ac20b')
+source=("https://github.com/taku910/$pkgname/archive/master.tar.gz")
+sha256sums=('0a3df9d3fd339445a8c9a172de6ead950c36276929f53f8eec1f9b846494dfef')
+
+prepare() {
+  cd "$pkgname-master/$pkgname"
+
+  # Clear generated files as they're outdated (made with a libtool version, Debian-2.2.6b-2ubuntu1).
+  make maintainer-clean
+  rm -rf aclocal.m4 m4 autom4te.cache configure Makefile.in config.h config.h.in config.status libtool ltmain.sh
+}
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$pkgname-master/$pkgname"
+
+  # Re-create generated files.
+  aclocal
+  libtoolize --force
+  autoheader
+  automake --add-missing
+  autoreconf
 
   ./configure --prefix=/usr
   make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$pkgname-master/$pkgname"
 
   make DESTDIR="$pkgdir" install
-  install -Dm644 "$srcdir/$pkgname-$pkgver/COPYING" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
