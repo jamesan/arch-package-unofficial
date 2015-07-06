@@ -9,8 +9,6 @@ pkgdesc='Simple, customizable and portable online hand recognition system based 
 arch=('i686' 'x86_64')
 url="http://taku910.github.io/$pkgname"
 license=('BSD')
-depends=('gcc-libs')
-makedepends=('libtool')
 source=("https://github.com/taku910/$pkgname/archive/master.tar.gz")
 sha256sums=('0a3df9d3fd339445a8c9a172de6ead950c36276929f53f8eec1f9b846494dfef')
 
