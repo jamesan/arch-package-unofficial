@@ -1,25 +1,26 @@
-# Maintainer: Julien Humbert <julroy67 at gmail dot com>
+# Maintainer James An <james@jamesan.ca>
+# Contributor: Julien Humbert <julroy67 at gmail dot com>
 
 pkgname=zinnia-python
-pkgver=0.06
-pkgrel=4
+pkgver=0.07
+pkgrel=1
 pkgdesc="Simple, customizable and portable online hand recognition system based on Support Vector Machines, Python bindings"
 arch=('i686' 'x86_64')
-url="http://zinnia.sourceforge.net/"
+url="http://taku910.github.io/$pkgname"
 license=('BSD')
-depends=('python2' 'zinnia>=0.06')
-makedepends=('python2')
+depends=('python2' 'zinnia>=0.07')
+makedepends=('python2-setuptools')
 options=(!emptydirs)
-source=("http://downloads.sourceforge.net/project/zinnia/zinnia/$pkgver/zinnia-$pkgver.tar.gz")
-sha256sums=('ece3af93f937282971634fd81d3e997f848e8cfa958220e26a4564ca064ac20b')
+source=("https://github.com/taku910/zinnia/archive/master.tar.gz")
+sha256sums=('0a3df9d3fd339445a8c9a172de6ead950c36276929f53f8eec1f9b846494dfef')
 
 build() {
-	cd "$srcdir/zinnia-$pkgver/python"
-	python2 setup.py build
+  cd "zinnia-master/zinnia/python"
+  python2 setup.py build
 }
 
 package() {
-	cd "$srcdir/zinnia-$pkgver/python"
-	python2 setup.py install --prefix=$pkgdir/usr --optimize=1
-	install -D -m644 $srcdir/zinnia-$pkgver/COPYING $pkgdir/usr/share/licenses/$pkgname/LICENSE
+  cd "zinnia-master/zinnia/python"
+  python2 setup.py install --prefix=$pkgdir/usr --optimize=1
+  install -Dm644 ../COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
