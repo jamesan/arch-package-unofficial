@@ -30,7 +30,7 @@ pkgver() {
 
 package() {
 	cd $_pkgname
-	python3 setup.py install --root="$pkgdir/" --optimize=1
+	python setup.py install --root="$pkgdir/" --optimize=1
 	install -Dm644 rules.d/42-logitech-unify-permissions.rules \
 		"$pkgdir/etc/udev/rules.d/42-logitech-unify-permissions.rules"
 }
