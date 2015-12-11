@@ -11,7 +11,7 @@ pkgdesc="Linux devices manager for the Logitech Unifying Receiver."
 arch=('any')
 url="http://pwr.github.io/$_pkgname"
 license=('GPL2')
-depends=('python' 'python-pyudev' 'python-gobject' 'pygtk')
+depends=('python-pyudev' 'python-gobject')
 makedepends=('git')
 provides=("${_pkgname,}=$pkgver")
 conflicts=("${_pkgname,}")
