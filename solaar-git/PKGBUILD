@@ -20,17 +20,17 @@ source=("$_pkgname"::"git+https://github.com/decibyte/$_pkgname.git")
 md5sums=('SKIP')
 
 pkgver() {
-	cd $_pkgname
-	(
-		set -o pipefail
-		git describe --long --tag | sed -r 's/([^-]*-g)/r\1/;s/-/./g' ||
-		printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
-	)
+  cd $_pkgname
+  (
+    set -o pipefail
+    git describe --long --tag | sed -r 's/([^-]*-g)/r\1/;s/-/./g' ||
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  )
 }
 
 package() {
-	cd $_pkgname
-	python setup.py install --root="$pkgdir/" --optimize=1
-	install -Dm644 rules.d/42-logitech-unify-permissions.rules \
-		"$pkgdir/etc/udev/rules.d/42-logitech-unify-permissions.rules"
+  cd $_pkgname
+  python setup.py install --root="$pkgdir/" --optimize=1
+  install -Dm644 rules.d/42-logitech-unify-permissions.rules \
+    "$pkgdir/etc/udev/rules.d/42-logitech-unify-permissions.rules"
 }

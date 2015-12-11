@@ -1,12 +1,12 @@
 pre_install() {
-	if ! getent group plugdev >/dev/null; then
-		groupadd --system plugdev
-	fi
+  if ! getent group plugdev >/dev/null; then
+    groupadd --system plugdev
+  fi
 }
 
 post_install() {
-	xdg-icon-resource forceupdate
-	update-desktop-database -q
- 	udevadm control --reload-rules
-	echo "To be able to use this application, user must be in the plugdev group."
+  xdg-icon-resource forceupdate
+  update-desktop-database -q
+  udevadm control --reload-rules
+  echo "To be able to use this application, user must be in the plugdev group."
 }
