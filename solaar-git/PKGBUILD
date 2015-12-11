@@ -34,8 +34,3 @@ package() {
 	install -Dm644 rules.d/42-logitech-unify-permissions.rules \
 		"$pkgdir/etc/udev/rules.d/42-logitech-unify-permissions.rules"
 }
-
-post_install() {
-	xdg-icon-resource forceupdate
-	update-desktop-database -q
-}

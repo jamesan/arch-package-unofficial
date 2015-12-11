@@ -5,6 +5,8 @@ pre_install() {
 }
 
 post_install() {
+	xdg-icon-resource forceupdate
+	update-desktop-database -q
  	udevadm control --reload-rules
 	echo "To be able to use this application, user must be in the plugdev group."
 }
